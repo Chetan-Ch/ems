@@ -1,0 +1,42 @@
+{% extends 'ems/base.html' %}
+{% load poll_extras %}
+
+{% block content %}
+
+     <h2>List of {{title}}</h2>
+     {% if request.role == 'Admin' %}
+         <a href="/employee/add">Add employee</a>
+     {% endif %}
+     {% if users %}
+        <u1>
+            {% for user in users %}
+              <li>
+                  {{user.first_name}} &nbsp; {{user.last_name}}
+                  <a href="/employee/{{user.id}}/details/">Details</a>
+                  <a href="/employee/{{user.id}}/edit/">Edit</a>
+                  <a href="/employee/{{user.id}}/delete/">Delete</a>
+              </li>
+            {% endfor %}
+
+        </u1>
+    {% else %}
+        <p>There is no question available.</p>
+    {% endif %}
+
+        <div class="col-sm-4">
+            {% recent_polls 1 as questions %}
+            <h2> List of polls</h2>
+          {% if questions %}
+            <u1>
+                {% for question in questions %}
+                    <li>
+                        <a href="{% url 'polls_detail' question.id %}">{{question.title}}</a>
+                    </li>
+                {% endfor %}
+
+            </u1>
+          {% else %}
+             <p>There is no question available</p>
+          {% endif %}
+        </div>
+{% endblock content %}

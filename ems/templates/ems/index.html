@@ -1,0 +1,17 @@
+{% extends 'ems/base.html' %}
+
+{% block content %}
+<h2> List of {{title}}</h2>
+  {% if questions %}
+    <u1>
+        {% for question in questions %}
+            <li>
+                <a href="{% url 'polls_detail' question.id %}">{{question.title}}</a>
+            </li>
+        {% endfor %}
+
+    </u1>
+  {% else %}
+     <p>There is no question available</p>
+  {% endif %}
+{% endblock %}

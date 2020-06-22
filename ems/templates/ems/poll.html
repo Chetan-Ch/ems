@@ -1,0 +1,18 @@
+{% extends 'ems/base.html' %}
+
+{% block content %}
+<h2> Vote Page</h2>
+<h3>{{question.title}}</h3>
+
+<form method="POST" >
+    {% csrf_token %}
+{% for choice in question.choices %}
+    <label>{{choice.text}}</label>
+    <input type="radio" name="choice" value="{{choice.id}}">
+{% empty %}
+<p> There is no choice available for this question.</p>
+{% endfor %}
+    <button type="submit" value="Vote">Vote</button>
+</form>
+<p>Poll is created by{{question.created_by.first_name}}</p>
+{% endblock %}
